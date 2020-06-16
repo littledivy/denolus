@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="/assets/denolus_official_logo.svg">
+    <img src="/assets/denolus_official_logo.svg" width="350">
 </p>
 
 # Denolus
