@@ -3,6 +3,5 @@
 </p>
 
 # Denolus
-____
 
 Denolus is strongly inspired by Stylus.
