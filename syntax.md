@@ -17,3 +17,11 @@ body > div:
     span:
         width: 10px
 ```
+
+or in toml
+
+```toml
+[body > div]
+    background = "#fff"
+    color = "#000"
+```
