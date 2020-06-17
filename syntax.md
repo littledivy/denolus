@@ -50,5 +50,10 @@ like in ts, we need to let the possibility to declare parameters for the types
 [RedOrBlackBackground<black>] body div:
     width: 10px
 ```
+### output
 
+obviously types has to disappear.
+```css
+body div { background: black; width: 10px }
+```
 
