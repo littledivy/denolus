@@ -1,5 +1,5 @@
-import { parse } from "../../deps.ts";
+import { parse as parseYML } from "../../deps.ts";
 
-export function parseDenolus(code: string) {
-  return JSON.parse(parse(code));
+export function parse(code: string) {
+  return JSON.parse(parseYML(code));
 }
