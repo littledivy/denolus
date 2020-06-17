@@ -17,3 +17,25 @@ body > div:
     span:
         width: 10px
 ```
+# Some ideas
+
+## Typed Scopes
+the idea is to let the possiblity to reuse already declared style for a selector, and/or to assert that all the required properties are implemented
+
+we need to declare first the types
+
+```yaml
+@type RedOrBlackBackground:
+    background: red | black
+```
+
+I suggest to use `@type` which looks like `@media` or `@keyframes`. but the issue is if CSS maintainers decide to implement it in a new version of CSS...
+
+### how to use types
+
+```yaml
+[RedOrBlackBackground] body div:
+    background: black # no error here
+    [RedOrBlackBackground] span:
+    background: blue # error here
+```
