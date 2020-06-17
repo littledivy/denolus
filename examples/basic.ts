@@ -1,9 +1,9 @@
-import compile from "../src/compiler/index.ts"
+import compile from "../src/compiler/index.ts";
 
 const css = compile({
   "div": {
-    "color": "#fff"
-  }
+    "color": "#fff",
+  },
 });
 
 console.log(css);
