@@ -39,3 +39,16 @@ I suggest to use `@type` which looks like `@media` or `@keyframes`. but the issu
     [RedOrBlackBackground] span:
         background: blue # error here
 ```
+### Generic Types
+like in ts, we need to let the possibility to declare parameters for the types
+
+```yaml
+@type RedOrBlackBackground<T>:
+    background: T
+    width: px | em # value has to end with px or em
+
+[RedOrBlackBackground<black>] body div:
+    width: 10px
+```
+
+
