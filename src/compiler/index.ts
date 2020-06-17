@@ -1,1 +1,1 @@
-export * from "./compiler.ts";
+export { Compiler as compile } from "./compiler.ts";

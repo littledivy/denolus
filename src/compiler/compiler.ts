@@ -1,6 +1,6 @@
 // TODO: better type checks
 
-class Css {
+export class Compiler {
   static of(json: any) {
     const selectors = Object.keys(json);
     return selectors.map((selector: any) => {
@@ -13,5 +13,3 @@ class Css {
     }).join("\n");
   }
 }
-
-export default Css;

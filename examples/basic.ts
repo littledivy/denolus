@@ -1,6 +1,6 @@
-import compile from "../src/compiler/index.ts";
+import { compile } from "../src/compiler/index.ts";
 
-const css = compile({
+const css = compile.of({
   "div": {
     "color": "#fff",
   },
