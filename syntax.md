@@ -37,5 +37,5 @@ I suggest to use `@type` which looks like `@media` or `@keyframes`. but the issu
 [RedOrBlackBackground] body div:
     background: black # no error here
     [RedOrBlackBackground] span:
-    background: blue # error here
+        background: blue # error here
 ```
