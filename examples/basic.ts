@@ -3,7 +3,7 @@ import { compile } from "../src/compiler/index.ts";
 
 const obj = parse(`
 div:
-  color: #fff
+  color: "#fff"
   background: deepskyblue
 `)
 
