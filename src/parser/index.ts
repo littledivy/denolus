@@ -1,5 +1,6 @@
-import { parse as parseYML } from "../../deps.ts";
+import { parse as parseYML } from "./_denolus/parse.ts";
+import transformer from './transformer.ts';
 
 export function parse(code: string) {
-  return parseYML(code);
+  return parseYML(transformer(code));
 }
