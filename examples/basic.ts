@@ -3,10 +3,13 @@ import { compile } from "../src/compiler/index.ts";
 
 const obj = parse(`
 div:
+  /* other comment */
   color: "#fff"
-  background: deepskyblue
+  background: deepskyblue /*
+  multi line comment
+  */
+  /*test of comments*/
 `)
-
 const css = compile(obj);
 
 console.log(css);
