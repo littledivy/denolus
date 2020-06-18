@@ -32,6 +32,10 @@ const PATTERN_TAG_HANDLE = /^(?:!|!!|![a-z\-]+!)$/i;
 /* eslint-disable-next-line max-len */
 const PATTERN_TAG_URI = /^(?:!|[^,\[\]\{\}])(?:%[0-9a-f]{2}|[0-9a-z\-#;\/\?:@&=\+\$,_\.!~\*'\(\)\[\]])*$/i;
 
+function debugg(c: number) {
+  console.warn(String.fromCodePoint(c));
+}
+
 function _class(obj: unknown): string {
   return Object.prototype.toString.call(obj);
 }
@@ -280,7 +284,6 @@ function captureSegment(
     } else if (PATTERN_NON_PRINTABLE.test(result)) {
       return throwError(state, "the stream contains non-printable characters");
     }
-
     state.result += result;
   }
 }
@@ -411,12 +414,6 @@ function skipSeparationSpace(
       ch = state.input.charCodeAt(++state.position);
     }
 
-    if (allowComments && ch === 0x23 /* # */) {
-      do {
-        ch = state.input.charCodeAt(++state.position);
-      } while (ch !== 0x0a && /* LF */ ch !== 0x0d && /* CR */ ch !== 0);
-    }
-
     if (isEOL(ch)) {
       readLineBreak(state);
 
@@ -487,7 +484,7 @@ function readPlainScalar(
   if (
     isWsOrEol(ch) ||
     isFlowIndicator(ch) ||
-    ch === 0x23 /* # */ ||
+    // ch === 0x23 /* # */ ||
     ch === 0x26 /* & */ ||
     ch === 0x2a /* * */ ||
     ch === 0x21 /* ! */ ||
@@ -530,13 +527,7 @@ function readPlainScalar(
       ) {
         break;
       }
-    } else if (ch === 0x23 /* # */) {
-      const preceding = state.input.charCodeAt(state.position - 1);
-
-      if (isWsOrEol(preceding)) {
-        break;
-      }
-    } else if (
+    }  else if (
       (state.position === state.lineStart && testDocumentSeparator(state)) ||
       (withinFlowCollection && isFlowIndicator(ch))
     ) {
@@ -575,7 +566,6 @@ function readPlainScalar(
   }
 
   captureSegment(state, captureStart, captureEnd, false);
-
   if (state.result) {
     return true;
   }
@@ -896,12 +886,6 @@ function readBlockScalar(state: LoaderState, nodeIndent: number): boolean {
     do {
       ch = state.input.charCodeAt(++state.position);
     } while (isWhiteSpace(ch));
-
-    if (ch === 0x23 /* # */) {
-      do {
-        ch = state.input.charCodeAt(++state.position);
-      } while (!isEOL(ch) && ch !== 0);
-    }
   }
 
   while (ch !== 0) {
@@ -1784,7 +1768,6 @@ export function loadAll<T extends CbFunction | LoaderStateOptions>(
 
 export function load(input: string, options?: LoaderStateOptions): unknown {
   const documents = loadDocuments(input, options);
-
   if (documents.length === 0) {
     return;
   }
