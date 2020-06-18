@@ -6,6 +6,7 @@ const obj = parse(`
 div:
   color: #fff
   background: deepskyblue
+  font-weight: 10px
 `)
 
 const css = compile(obj);
