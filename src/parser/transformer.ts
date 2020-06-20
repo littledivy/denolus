@@ -29,7 +29,7 @@ function removeImports(str: string): string {
   for (let i = 0; i < lineByLine.length; i++) {
     const element = lineByLine[i];
     if (!element.trim().startsWith("@import")) {
-      result.push(element)
+      result.push(element);
     }
   }
   return result.join("\n");
