@@ -12,7 +12,7 @@ div:
   multi line comment
   */
   /*test of comments*/
-`)
+`);
 const css = compile(obj);
 
 console.log(css);

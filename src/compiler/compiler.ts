@@ -1,7 +1,7 @@
 // TODO: better type checks
 
 export function Compiler(json: any): string {
-  const selectors = Object.keys(json)
+  const selectors = Object.keys(json);
   return selectors.map((selector: any) => {
     const definition = json[selector];
     const rules = Object.keys(definition);
