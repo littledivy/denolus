@@ -24,24 +24,18 @@ function getImportList(str: string): string[] {
 }
 
 function removeImports(str: string): string {
-  let lineByLine = str.split("\n");
+  let lineByLine: string[] = str.split("\n");
   for (const i in lineByLine) {
     // @ts-ignore
     if (lineByLine[i].trim().startsWith("@import")) {
-      console.log(lineByLine[i]);
-      // console.log(lineByLine[i])
-      lineByLine.splice(Number(i), 1);
+      lineByLine = lineByLine.filter(function (ele: string) {
+        return ele != lineByLine[i];
+      });
+      console.log(lineByLine)
     }
   }
   return lineByLine.join("\n");
 }
-
-function arrayRemove(arr, value) {
-  return arr.filter(function (ele) {
-    return ele != value;
-  });
-}
-var result = arrayRemove(array, 6); // result = [1, 2, 3, 4, 5, 7, 8, 9, 0]
 
 function removeQuotes(str: string) {
   return str.replace(new RegExp('"', "g"), "");
@@ -51,7 +45,7 @@ function transform(str: string): string {
   let result = str;
   result = transformComments(result);
   getImportList(result);
-  result = removeImports(result);
+  console.log(removeImports(result));
   return result;
 }
 
