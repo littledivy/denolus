@@ -47,11 +47,21 @@ function removeQuotes(str: string) {
   return str.replace(new RegExp('"', "g"), "");
 }
 
+function syncImports(str: string, importList: string[]) {
+  // TODO: fetch imports and append on top;
+  return str;
+}
+
+function fetchImports(file: string) {
+  // TDOD
+}
+
 function transform(str: string): string {
   let result = str;
   result = transformComments(result);
-  getImportList(result);
+  let importList = getImportList(result);
   result = removeImports(result);
+  result = syncImports(result, importList);
   return result;
 }
 
