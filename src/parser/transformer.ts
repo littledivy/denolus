@@ -50,7 +50,6 @@ function removeQuotes(str: string) {
 }
 
 function syncImports(str: string, importList: string[]) {
-  // TODO: fetch imports and append on top;
   let importedStr: string = "";
   for (let i = 0; i < importList.length; i++) {
     importedStr += fetchImport(importList[i]) + "\n";
