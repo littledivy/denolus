@@ -2,6 +2,9 @@ import { parse } from "../src/parser/index.ts";
 import { compile } from "../src/compiler/index.ts";
 
 const obj = parse(`
+@import "a"
+@import "b"
+
 div:
   /* other comment */
   color: #fff /*no more a comment */

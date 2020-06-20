@@ -11,9 +11,29 @@ function transformComments(str: string): string {
   }
   return result;
 }
+
+function getImportList(str: string) {
+  let lineByLine = str.split("\n");
+  let fileList: string[] = [];
+  for (const i in lineByLine) {
+    // @ts-ignore
+    if(lineByLine[i].trim().startsWith("@import")) {
+      // @ts-ignore
+      fileList.push(removeQuotes(lineByLine[i].split("@import")[1].trim()))
+    };
+  }
+  return fileList;
+}
+
+function removeQuotes(str: string) {
+  return str.replace(new RegExp("\"", 'g'), "");
+}
+
 function transform(str: string): string {
   let result = str;
   result = transformComments(result);
+  console.log(getImportList(result));
   return result;
 };
+
 export default transform;
