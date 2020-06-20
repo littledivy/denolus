@@ -25,16 +25,22 @@ function getImportList(str: string): string[] {
 
 function removeImports(str: string): string {
   let lineByLine: string[] = str.split("\n");
-  for (const i in lineByLine) {
-    // @ts-ignore
-    if (lineByLine[i].trim().startsWith("@import")) {
-      lineByLine = lineByLine.filter(function (ele: string) {
-        return ele != lineByLine[i];
-      });
-      console.log(lineByLine)
+  let result = [];
+  for (let i = 0; i < lineByLine.length; i++) {
+    const element = lineByLine[i];
+    if (!element.trim().startsWith("@import")) {
+      result.push(element)
     }
   }
-  return lineByLine.join("\n");
+  return result.join("\n");
+}
+
+function removeItemOnce(arr: string[], value: string) {
+  var index = arr.indexOf(value);
+  if (index > -1) {
+    arr.splice(index, 1);
+  }
+  return arr;
 }
 
 function removeQuotes(str: string) {
@@ -45,7 +51,7 @@ function transform(str: string): string {
   let result = str;
   result = transformComments(result);
   getImportList(result);
-  console.log(removeImports(result));
+  result = removeImports(result);
   return result;
 }
 
