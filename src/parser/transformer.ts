@@ -59,7 +59,9 @@ function syncImports(str: string, importList: string[]) {
 
 function fetchImport(file: string): string {
   const decoder = new TextDecoder("utf-8");
-  const text = decoder.decode(Deno.readFileSync(file));
+  const text = decoder.decode(
+    Deno.readFileSync(file.endsWith(".lus") ? file : file + ".lus"),
+  );
   return text;
   // TODO: internal imports
 }
