@@ -1,3 +1,5 @@
+import { readFileStr } from 'https://deno.land/std/fs/mod.ts';
+
 function transformComments(str: string): string {
   let result = str;
   const tokens = ["/*", "*/"];
@@ -49,11 +51,18 @@ function removeQuotes(str: string) {
 
 function syncImports(str: string, importList: string[]) {
   // TODO: fetch imports and append on top;
-  return str;
+  let importedStr: string = "";
+  for (let i = 0; i < importList.length; i++) {
+    importedStr += fetchImport(importList[i]) + "\n";
+  }
+  return importedStr + str;
 }
 
-function fetchImports(file: string) {
-  // TDOD
+function fetchImport(file: string): string {
+  const decoder = new TextDecoder('utf-8');
+  const text = decoder.decode(Deno.readFileSync(file));
+  return text;
+  // TODO: internal imports
 }
 
 function transform(str: string): string {
