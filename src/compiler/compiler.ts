@@ -12,7 +12,6 @@ function recursiveCompilation(json: { [k: string]: any }, collection: Map<string
   const { level = 0 } = opts;
   const isTopLevel = level === 0;
   const tokens: string[] = Object.keys(json);
-  const id = 'a' + Math.random(); // TODO: use uuid module
   tokens.forEach((key: string) => {
     switch (true) {
       case Array.isArray(json[key]) && !key.startsWith('_'):
@@ -46,16 +45,17 @@ function recursiveCompilation(json: { [k: string]: any }, collection: Map<string
         });
         break;
       case !Array.isArray(json[key]) && typeof json[key] === 'object':
-        collection.set(id, {
+        const id2 = 'a' + Math.random(); // TODO: use uuid module
+        collection.set(id2, {
           type: 'selector',
           value: json[key],
           name: key,
-          id, // TODO: use uuid module
+          id: id2, // TODO: use uuid module
           parentId: opts.id || null,
         });
         recursiveCompilation(json[key], collection, {
           level: level + 1,
-          id,
+          id: id2,
         });
     }
   });
