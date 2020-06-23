@@ -24,11 +24,11 @@ function recursiveCompilation(json: { [k: string]: any }, collection: Map<string
             parentId: opts.id || null,
           });
         break;
-      case key.startsWith('$') && isTopLevel && typeof json[key] !== 'object':
+      case key.startsWith('$') && isTopLevel && typeof json[key] !== 'object' && json[key].startsWith('='):
         const varId = 'a' + Math.random(); // TODO: use uuid module
         collection.set(varId, {
           type: 'variable',
-          value: json[key],
+          value: json[key].substring(1).trim(),
           name: key,
           id: varId,
           parentId: opts.id || null,
