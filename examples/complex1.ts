@@ -2,7 +2,7 @@ import { parse } from "../src/parser/index.ts";
 import { compile } from "../src/compiler/index.ts";
 
 const obj = parse(`
-$variable: #ff000
+$variable: = #ff000
 div:
   span:
     ~ fdsqfdsq:
