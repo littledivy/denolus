@@ -18,7 +18,7 @@ Denolus is strongly inspired by Stylus.
 ### Examples
 ```yaml
 @import "examples/module"
-$variable: = #ff000
+$variable = #ff000
 div:
   span:
     ~ nth-child(1):
