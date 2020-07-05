@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://github.com/divy-work/denolus/assets/denolus_official_logo.svg" width="350">
+    <img src="https://raw.githubusercontent.com/divy-work/denolus/master/assets/denolus_official_logo.svg" width="350">
 </p>
 
 # Denolus
