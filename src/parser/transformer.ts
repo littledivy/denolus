@@ -66,12 +66,27 @@ function fetchImport(file: string): string {
   // TODO: internal imports
 }
 
+function transformVars(str: string): string {
+  let result = str;
+  const matchs = /(\$)([^\=\s]*)+\s*(\=)([^\n\r]*)+/gi;
+  const match = /(\$)([^\=\s]*)+\s*(\=)([^\n\r]*)+/;
+  const m = result.match(matchs);
+  if (m) {
+    m.forEach((s: string) => {
+      const newS = s.replace(match, '$1$2: =$4');
+      result = result.replace(s, newS);
+    });
+  }
+  return result;
+}
+
 function transform(str: string): string {
   let result = str;
   result = transformComments(result);
   let importList = getImportList(result);
   result = removeImports(result);
   result = syncImports(result, importList);
+  result = transformVars(result);
   return result;
 }
 
