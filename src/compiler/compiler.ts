@@ -15,14 +15,14 @@ function recursiveCompilation(json: { [k: string]: any }, collection: Map<string
   tokens.forEach((key: string) => {
     switch (true) {
       case Array.isArray(json[key]) && !key.startsWith('_'):
-          const arrayId = 'a' + Math.random(); // TODO: use uuid module
-          collection.set(arrayId, {
-            type: 'rule',
-            value: json[key].filter((s: any) => typeof s === 'string').join(' '),
-            name: key,
-            id: arrayId,
-            parentId: opts.id || null,
-          });
+        const arrayId = 'a' + Math.random(); // TODO: use uuid module
+        collection.set(arrayId, {
+          type: 'rule',
+          value: json[key].filter((s: any) => typeof s === 'string').join(' '),
+          name: key,
+          id: arrayId,
+          parentId: opts.id || null,
+        });
         break;
       case key.startsWith('$') && isTopLevel && typeof json[key] !== 'object' && json[key].startsWith('='):
         const varId = 'a' + Math.random(); // TODO: use uuid module
@@ -78,24 +78,27 @@ export function Compiler(json: any): string {
     return token.type === 'variable'
   }).map(([, t]) => t);
   selectors.forEach((token: TokenItem) => {
-    const childRules: string[]= [];
+    const childRules: string[] = [];
     let query = token.name;
     if (token.parentId) {
       let parent = collection.get(token.parentId);
-      while (parent && parent.parentId) {
-        query = query.replace(/~/gi, parent.name)
-        parent = collection.get(parent.parentId);
+      while (parent) {
+        query = query.replace(/\~/gi, parent.name)
+        if (parent.parentId) {
+          parent = collection.get(parent.parentId);
+        } else {
+          parent = undefined;
+        }
       }
     }
     let rule = rules.find((r) => r.parentId === token.id);
-
     while (rule) {
       childRules.push(`${rule.name}: ${rule.value}`);
       rules.splice(rules.indexOf(rule), 1);
       rule = rules.find((r) => r.parentId === token.id);
     }
     if (childRules.length) {
-      result+= `${query} { ${childRules.join(';\n')} }\n`
+      result += `${query} { ${childRules.join(';\n')} }\n`
     }
   })
   let variable = variables.find((v) => result.indexOf(v.name) > -1);
