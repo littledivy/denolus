@@ -1,5 +1,3 @@
-import { readFileStr } from "https://deno.land/std/fs/mod.ts";
-
 function transformComments(str: string): string {
   let result = str;
   const tokens = ["/*", "*/"];
@@ -58,11 +56,7 @@ function syncImports(str: string, importList: string[]) {
 }
 
 function fetchImport(file: string): string {
-  const decoder = new TextDecoder("utf-8");
-  const text = decoder.decode(
-    Deno.readFileSync(file.endsWith(".lus") ? file : file + ".lus"),
-  );
-  return text;
+  return Deno.readTextFileSync(file.endsWith(".lus") ? file : file + ".lus");
   // TODO: internal imports
 }
 
